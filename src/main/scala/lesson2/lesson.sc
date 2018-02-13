@@ -1,10 +1,25 @@
 object lesson {
   // For comprehensions
 
+  // Equivalent expressions
   for (i <- 1 to 10) println(i)
-  for (ch <- "Hello") println(ch)
+  (1 to 10).foreach(println)
+  1 to 10 foreach println
 
+  // Equivalent expressions
+  for (ch <- "Hello") println(ch)
+  "Hello".foreach(println)
+  "Hello" foreach println
+
+  // Equivalent expressions
   for (i <- 1 to 3; j <- 1 to 3 if i != j) yield (i, j)
+  (1 to 3).flatMap(i => (1 to 3).withFilter(j => i != j).map(j => (i, j)))
+  (1 to 3).flatMap {
+    i =>
+      (1 to 3)
+        .filter(j => i != j)
+        .map(j => (i, j))
+  }
 
   def abs(x: Double) = if (x < 0) -x else x
 

@@ -21,20 +21,20 @@ Infix notation
 No `++` or `--` operators in Scala, instead use `+= 1` and `-= 1` (similar to python here)
 
 Functions vs methods -> Methods operate on objects, functions don't.   
-`1 + 2 = 3' // + is a method on Int
-`sqrt(2)` => sqrt is a function (in scala.math._)
+`1 + 2 = 3`     // + is a method on Int  
+`sqrt(2)`       // sqrt is a function (in scala.math._)
 
 
-If a method is an accessor, don't put parenthesis while calling it. Else use parenthesis.  
+Convention: if a method is an accessor, don't put parenthesis while calling it. Else use parenthesis.  
 `"Hello".length` instead of `"Hello".length()`, as length is not a mutator.
 
 
-If a type has an `apply()` method, it can be called directly (similar to `__call__` in python)
-`"Hello"(4)` // 'o'
-`"Hello".apply(4)` // 'o'
+If a type has an `apply()` method, it can be called directly (similar to `__call__` in python)  
+`"Hello"(4)` // 'o'  
+`"Hello".apply(4)` // 'o'  
 
 
-Imports can be anywhere in the file. Need not be at the top
+Imports can be anywhere in the file. Need not be at the top.
 
 
 Lesson 2
@@ -82,9 +82,11 @@ certain cases.
 
 In function definition, type should be given for the parameters, but the return type 
 can be inferred, except in the case of recursive functions in which case the return 
-type needs to be supplied  
-Without an eq, it's a Unit return type. This is not considered good style, better to 
-be explicit
+type needs to be supplied Still, in many cases, it can be more readable to provide an
+explicit return type.  
+Without an equals, it's a Unit return type. This is not considered good style, better to 
+be explicit by explicitly specifying Unit return type and
+using the equals syntax itself.
 
 
 Named arguments => Useful for greater clarity, for changing the order, and to avoid
@@ -98,7 +100,7 @@ eg: To call a function `sum(x: Int*) => Int`, if we call with `sum(1 to 10)`,
 it will be an error. We need to call as `sum(1 to 10 : _*)`
 
 
-In java, we can check some conditions and reassign to method parameters to handle a particular flag. Method parameters are not allowed in Scala, so the way to handle this in Scala would be to recurse.
+In java, we can check some conditions and reassign to method parameters to handle a particular flag. Method parameters are immutable in Scala, so one way to handle this in Scala would be to recurse.
 eg:
 Below java code:
 ```java
@@ -108,6 +110,7 @@ int distinctChars(String str, boolean ignoreCase) {
  }
  // ..
  // ...
+ 
 }
 ```
 is kind of equivalent to the below scala code:
@@ -140,16 +143,18 @@ Use parentheses to access the elements, instead of square brackets
 Arrays are mutable in that the elements within can be changed but changing the size of the array is not possible without a full reassignment. 
 Arrays can be appended to by +:, but this is not a true append as it creates a new array and does a full copy of the current array. The current array remains the same.
 
-`for (element <- a)` traverses the array elements
-`for (i <- array.indices)` traverses the array indexes
-`for (i <- array.indices)` traverses the array indexes
+`for (element <- a)` traverses the array elements  
+`for (i <- 0 until array.length)` traverses array indices  
+`for (i <- array.indices)` is a cleaner way for the same
 
 
 
 ### ArrayBuffer
 Equivalent to ArrayList in java
+```
 import scala.collection.mutable.ArrayBuffer
 val b = new ArrayBuffer[Int]
+```
 
 Use += to append an element (add at the end), ++= to concatenate a sequence at the end.
 Appending an element takes amortized constant time, and worst case linear time.
@@ -162,17 +167,17 @@ Also supports methods like sorted, reverse, sum etc
 
 ### Map
 Map is immutable
-scala.collection.mutable.Map is the mutable version
-val scores = Map("Alice" -> 1, "Bob" -> 2)
+scala.collection.mutable.Map is the mutable version  
+`val scores = Map("Alice" -> 1, "Bob" -> 2)`
 
-for comprehension on a map
+for comprehension on a map  
 `for ((k, v) <- scores) println(k + " has score " + v)`
 
-for/yield to get a new Map
+for/yield to get a new Map  
 `for ((k, v) <- scores) yield(v, k)` reverses the map's key & values
 
 
 ### Tuple
-Tuple aggregates values of possibly different types
-val twins = ("Fred", "George", 1) 
+Tuple aggregates values of possibly different types  
+`val twins = ("Fred", "George", 1)`
 
